@@ -1,0 +1,1 @@
+{'NAME': 'pippo', 'AGI': 2, 'INT': 5, 'RES': 4, 'WEAPON': 'short_sword', 'VIT': 17, 'ARMOR': 'tunic', 'STR': 1, 'SKILL': 'no_skill'}

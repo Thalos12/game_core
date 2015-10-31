@@ -5,11 +5,12 @@ import sys
 
 class Skill(object):
     def __init__(self, skill_name):
-        if skill_name == 'kick':
-            import sample_skill_kick as skill
-        else:
-            print "Unknown skill."
-            sys.exit()
+        if skill_name != 'no_skill':
+            try:
+                exec "from core.skills import " +skill_name+ " as skill"
+            except:
+                print "Unknown weapon."
+                sys.exit()
         self.NAME = skill.NAME
         self.DESCRIPTION = skill.DESCRIPTION
 

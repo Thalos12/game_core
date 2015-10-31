@@ -1,5 +1,8 @@
 import os
 
-def Load(name):
+def load(name):
     try:
-        os.path.isfile()
+        os.path.isfile(name)
+    except:
+        print "No profile found."
+    
