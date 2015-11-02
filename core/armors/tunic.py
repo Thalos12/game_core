@@ -3,7 +3,7 @@ __author__ = 'mazzalex02'
 NAME = "Tunic"
 KIND = "light armor"
 
-DESCRIPTION = "A simple piece of cloth good for any season.."
+DESCRIPTION = "A simple piece of cloth good for any season."
 
 DURABILITY = 100
 

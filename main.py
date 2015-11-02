@@ -4,6 +4,7 @@ import random
 import time
 from core.client import client
 from core.classes.player import Player
+from core.settings.settings import *
 
 
 class Game(object):
@@ -16,9 +17,9 @@ class Game(object):
         # noinspection PyBroadException
         try:
             open(os.path.join(root, 'data','players', name+'.profile'))
-            print "Welcome back {}!".format(name)
+            print "\nWelcome back {}!\n".format(name)
         except:
-            print "No player named {} found.".format(name)
+            print "\nNo player named {} found.\n".format(name)
             a = raw_input('Would you like to create a new profile?[y/n]').lower() or 'y'
             if a == 'y':
                 self.create_profile(name)
@@ -27,30 +28,47 @@ class Game(object):
             else:
                 print "Sorry, this is not a valid answer."
                 sys.exit()
-        player = Player(self.load_profile(name))
-        print "You are now ready to go.\n"
-        player.info() #only while developing to make sure all is working
+        self.player = Player(self.load_profile(name))
+        print "You are now ready to go!\n"
+        #self.player.info() #only while developing to make sure all is working
+        #self.player.weapon.info()
+        #self.player.armor.info()
+        self.run()
+
+    def run(self):
+        while True:
+            opt = self.show_main_menu()
+            a = raw_input("Please choose one: ")
+            print '\n'
+            if a in opt.keys():
+                exec opt[a]
+            else:
+                print "Command is not correct.\n"
         
     def create_profile(self,name):
         print "Generating new stats for you."
         VIT = random.randint(10, 20)
         print "Vitality: "+str(VIT)
-        time.sleep(1.5)
+        time.sleep(print_sleep)
         STR = random.randint(1, 6)
         print "Strength: "+str(STR)
-        time.sleep(1.5)
+        time.sleep(print_sleep)
         RES = random.randint(1, 6)
         print "Resistance: "+str(RES)
-        time.sleep(1.5)
+        time.sleep(print_sleep)
         AGI = random.randint(1, 6)
         print "Agility: "+str(AGI)
-        time.sleep(1.5)
+        time.sleep(print_sleep)
         INT = random.randint(1, 6)
         print "Intelligence: "+str(INT)
-        time.sleep(1.5)
-        print "Your starting weapon is a short sword."
+        time.sleep(print_sleep)
+        print "\nYour starting weapon is a short sword."
+        time.sleep(print_sleep)
         print "Your starting armor is a tunic."
-        print "You have skills at the beginning."
+        time.sleep(print_sleep)
+        print "You have skills at the beginning.\n"
+        time.sleep(print_sleep)
+        
         stats = {}
         stats['NAME'] = name
         stats['VIT'] = VIT
@@ -66,15 +84,30 @@ class Game(object):
     def load_profile(self,name):
         f = open(os.path.join(root,'data','players',name+'.profile'),'r')
         d = f.readline()
+        f.close()
         d = eval(d)
         return d
 
     def save_profile(self,stats):
         f = open(os.path.join(root,'data','players',stats['NAME']+'.profile'),'w')
         f.write(str(stats))
+        f.close()
 
     def send_data(self, stats, target="127.0.0.1"):
         client(target, str(stats))
+
+    def show_main_menu(self):
+        opt = {"i":"self.player.info()",
+               "w":"self.player.weapon.info()",
+               "a":"self.player.armor.info()",
+               "q":"print 'Bye bye '+self.player.name;sys.exit()"}
+        s = ("*"*6+"MAIN MENU"+"*"*6+'\n'
+             "i - show player's info\n"
+             "w - show weapon's info\n"
+             "a - show armor's info\n"
+             "q - quit the game\n")
+        print s
+        return opt
     
 if __name__ == '__main__':
     root = os.getcwd()

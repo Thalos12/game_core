@@ -47,5 +47,6 @@ class Player(object):
             if "_" in str(value):
                 value = "{} {}".format(value.split("_")[0],value.split("_")[1])
             print "{} : {}".format(element,value)
+        print ''
 
     
