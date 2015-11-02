@@ -66,7 +66,7 @@ class Game(object):
         time.sleep(print_sleep)
         print "Your starting armor is a tunic."
         time.sleep(print_sleep)
-        print "You have skills at the beginning.\n"
+        print "You have no skills at the beginning.\n"
         time.sleep(print_sleep)
         
         stats = {}
