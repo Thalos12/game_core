@@ -16,10 +16,12 @@ Profiles named pippo, Pippo, PIPPO, PiPpO, etc… can all play on the same machi
 
 At the moment saving is allowed only at the moment a new profile is created. This is intentional also because there is no way, for now, to modify it (e.g. level up, change equipment, etc…).
 After downloading with git, navigate to the directory through the terminal then type “python main.py” without quotes.
-There is no tutorial: for now you can just create a profile.
-=======
+There is no tutorial: for now you can only create a profile.
+
+# Playing
+
 After downloading with git, navigate to the directory through the terminal then type “python main.py”, without quotes.
-There is no tutorial: for now you can just create a profile and view it. Read the in game main menu instructions to learn how to display the stats.
+There is no tutorial: for now you can create a profile and view it. Read the in game main menu instructions to learn how to display the stats.
 
 # The profile
 
@@ -29,4 +31,9 @@ Your profile has three main aspects for now:
 <li>weapon stats
 <li>armor stats
 </ul>
-More features will be available in the future.
+More features will be available in the future, such as a skill.
+
+# New updates
+
+There will be many changes in the code, especially in the beginning.
+Expect your profiles to be deleted in case of changes to the player class.

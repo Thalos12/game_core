@@ -27,5 +27,5 @@ def Battle_menu(player1,player2):
             p1.Attack(p2)
         else:
             p1.bot_Attack(p2)
-    del p1.distance
-    del p2.distance
+        p1.distance -= 10
+        p2.distance -= 10
