@@ -1,1 +1,0 @@
-{'NAME': 'roro', 'AGI': 4, 'INT': 1, 'RES': 5, 'WEAPON': 'short_sword', 'VIT': 12, 'ARMOR': 'tunic', 'STR': 2, 'SKILL': 'no_skill'}

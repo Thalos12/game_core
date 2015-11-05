@@ -1,1 +1,1 @@
-{'NAME': 'pippo', 'AGI': 2, 'INT': 5, 'RES': 4, 'WEAPON': 'short_sword', 'VIT': 17, 'ARMOR': 'tunic', 'STR': 1, 'SKILL': 'no_skill'}
+{'STR': 5, 'AGI': 4, 'LEVEL': 1, 'INT': 6, 'RES': 3, 'WEAPON': 'short_sword', 'ARMOR': 'tunic', 'VIT': 14, 'EXP': 0, 'SKILL': 'no_skill', 'NAME': 'pippo'}

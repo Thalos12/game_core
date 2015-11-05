@@ -1,47 +1,31 @@
 __author__ = 'mazzalex02'
-import class_player as class_player
-import class_enemy as class_enemy
-import class_weapon as class_weapon
-import class_armor
-import random
 
 
 # noinspection PyPep8Naming
-def Fight(unit1, unit2):
-    if unit1.AGILITY > unit2.AGILITY:
-        print unit1.NAME, "attacks first."
-        unit1.Attack(unit2)
-        if unit2.VITALITY > 0:
-            print unit2.NAME, "attacks."
-            unit2.Attack(unit1)
-            if unit1.VITALITY < 0:
-                print unit1.MOVEMENT, 'is dead.'
-        else:
-            print unit2.NAME, "is dead."
+def Battle_menu(player1,player2):
+    """Only for adventure, not PVP. """
+    if player1.stats['AGI'] > player2.stats['AGI']:
+        p1 = player1
+        p2 = player2
+    elif player1.stats['AGI'] < player2.stats['AGI']:
+        p1 = player2
+        p2 = player1
     else:
-        print unit2.NAME, "attacks first."
-        unit2.Attack(unit1)
-        if unit1.VITALITY > 0:
-            print unit1.NAME, "attacks."
-            unit1.Attack(unit2)
-            if unit2.VITALITY < 0:
-                print unit2.NAME, 'is dead.'
+        print 'Same agility, the order of the fight will be randomized.'
+        i = random.random()
+        if i>=0.5:
+            p1 = player1
+            p2 = player2
         else:
-            print unit1.NAME, "is dead."
-
-
-if __name__ == '__main__':
-    player = class_player.Player({"NAME": "Leo",
-                                  "DESCRIPTION": "Me.",
-                                  "VITALITY": 30,
-                                  "STRENGTH": 7,
-                                  "RESISTANCE": 5,
-                                  "AGILITY": 3,
-                                  "INTELLIGENCE": 5,
-                                  "WEAPON": class_weapon.Weapon('sword'),
-                                  "ARMOR": class_armor.Armor('tunic'),
-                                  "SKILL": None})
-
-    enemy = class_enemy.Enemy()
-
-    Fight(player, enemy)
+            p1 = player2
+            p2 = player1
+    turns = 0
+    p1.distance = 50
+    p2.distance = 50
+    while (p1.stats['VIT']>0 and p2.stats['VIT']>0):
+        if p1.isbot == False:
+            p1.Attack(p2)
+        else:
+            p1.bot_Attack(p2)
+    del p1.distance
+    del p2.distance

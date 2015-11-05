@@ -16,7 +16,7 @@ class Game(object):
         name = raw_input('Insert your name, please: ')
         # noinspection PyBroadException
         try:
-            open(os.path.join(root, 'data','players', name+'.profile'))
+            open(os.path.join(root,'data','players', name+'.profile'))
             print "\nWelcome back {}!\n".format(name)
         except:
             print "\nNo player named {} found.\n".format(name)
@@ -30,9 +30,9 @@ class Game(object):
                 sys.exit()
         self.player = Player(self.load_profile(name))
         print "You are now ready to go!\n"
-        #self.player.info() #only while developing to make sure all is working
-        #self.player.weapon.info()
-        #self.player.armor.info()
+        #self.player.info() # used only while testing
+        #self.player.weapon.info() # same as above
+        #self.player.armor.info() # same as above
         self.run()
 
     def run(self):
@@ -43,7 +43,7 @@ class Game(object):
             if a in opt.keys():
                 exec opt[a]
             else:
-                print "Command is not correct.\n"
+                print "Command is not valid.\n"
         
     def create_profile(self,name):
         print "Generating new stats for you."
@@ -71,6 +71,8 @@ class Game(object):
         
         stats = {}
         stats['NAME'] = name
+        stats['LEVEL'] = 1
+        stats['EXP'] = 0
         stats['VIT'] = VIT
         stats['STR'] = STR
         stats['RES'] = RES
@@ -100,7 +102,7 @@ class Game(object):
         opt = {"i":"self.player.info()",
                "w":"self.player.weapon.info()",
                "a":"self.player.armor.info()",
-               "q":"print 'Bye bye '+self.player.name;sys.exit()"}
+               "q":"print 'Bye bye '+self.player.name+'.';sys.exit()"}
         s = ("*"*6+"MAIN MENU"+"*"*6+'\n'
              "i - show player's info\n"
              "w - show weapon's info\n"
