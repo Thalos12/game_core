@@ -1,1 +1,0 @@
-{'STR': 5, 'AGI': 4, 'LEVEL': 1, 'INT': 6, 'RES': 3, 'WEAPON': 'short_sword', 'ARMOR': 'tunic', 'VIT': 14, 'EXP': 0, 'SKILL': 'no_skill', 'NAME': 'pippo'}
