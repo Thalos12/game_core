@@ -1,6 +1,8 @@
 # bot stats
 NAME = "Enemy"
 DESCRIPTION = "A simple enemy."
+LEVEL = 1
+EXP = 0
 
 VITALITY = 30
 STRENGTH = 4

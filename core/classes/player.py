@@ -18,7 +18,7 @@ class Player(object):
         #self.skill = skill.Skill(stats['SKILL'])
         self.isbot = False
 
-    def Attack(self, target):
+    def Attack(self, target,distance):
         print self.name, 'attacks', target.name, '.'
         while True:
             kind = raw_input("Kind of attack?[p(ierce)/s(lash)/m(agic)/r(anged)]")
@@ -40,7 +40,7 @@ class Player(object):
             damage = 0
         print self.name, 'deals', damage, 'damage to', target.name
         target.stats['VIT'] -= damage
-        print target.name, 'vitality is now', target.stats['VIT']
+        print target.name, 'vitality is now', target.stats['VIT'],'\n'
 
     def info(self):
         l = ["Name","Level","Exp","Vit","Str","Res","Agi","Int","Weapon","Armor","Skill"]
