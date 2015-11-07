@@ -1,29 +1,18 @@
-# GAME_CORE
+# About this project
 
-This project has as main aim to build the core of a simple, textual, rpg-like game.
+This project has as main aim to build the core of a simple rpg-like game.
 
-# How to
+# How to get and run game_core
 
-After downloading with git, navigate to the directory through the terminal then type “python main.py” without quotes.
-There is no tutorial: for now you can just create a profile.
+Download with git (using <code>git clone https://github.com/Thalos12/game_core</code>), navigate to the directory through the terminal then type <code>python main.py</code>.
+There is no tutorial at the moment: you can only create a profile (soon we will add a complete battle experience against bots).
 
-# Name of the profile
+# Choosing a name for the profile
 
-At this point the game will consider upper case letters as different from lower case letter.
-Profiles named pippo, Pippo, PIPPO, PiPpO, etc… can all play on the same machine as different players.
+The game will consider upper case letters as different from lower case letter.
+Profiles named pippo, Pippo, PIPPO, PiPpO, etc… can all be assigned to different players.
 
-# Saving
-
-At the moment saving is allowed only at the moment a new profile is created. This is intentional also because there is no way, for now, to modify it (e.g. level up, change equipment, etc…).
-After downloading with git, navigate to the directory through the terminal then type “python main.py” without quotes.
-There is no tutorial: for now you can only create a profile.
-
-# Playing
-
-After downloading with git, navigate to the directory through the terminal then type “python main.py”, without quotes.
-There is no tutorial: for now you can create a profile and view it. Read the in game main menu instructions to learn how to display the stats.
-
-# The profile
+# Explanation of the profile
 
 Your profile has three main aspects for now:
 <ul>
@@ -31,7 +20,11 @@ Your profile has three main aspects for now:
 <li>weapon stats
 <li>armor stats
 </ul>
-More features will be available in the future, such as a skill.
+More features will be available in the future, such as skills.
+
+# Saving
+
+At the moment saving is allowed only at the moment a new profile is created. This is intentional also because there is no way, for now, to modify it (e.g. level up, change equipment, etc…).
 
 # New updates
 
