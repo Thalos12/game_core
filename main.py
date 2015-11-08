@@ -11,8 +11,8 @@ from core import battle_manager
 sys.path.append(os.getcwd())
 
 import logging
-logging.basicConfig(filename = os.path.join('core','logs',str(time.time())),level=logging.DEBUG)
-logging.info("{}".format(time.strftime("START LOG: %d %b %Y, %H:%M:%S")))
+logging.basicConfig(filename = os.path.join('core','logs',str(int(time.time()))+'.txt'),level=logging.DEBUG)
+logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
 
 class Game(object):
     def __init__(self):
