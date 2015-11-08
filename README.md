@@ -26,9 +26,9 @@ Character stats are NAME, DESCRIPTION, LEVEL, EXP VIT, STR, RES, AGI, INT.
 Weapon stats are NAME, KIND, DESCRIPTION and damage modifiers for pierce, slash, magic and
 ranged attacks.
 Armor stats are NAME, KIND, DESCRIPTION and damage reducers for pierce, slash, magic and
-ranged attacks
+ranged attacks.
 More features will be available in the future, such as skills.
-Probably another kind of attack, smash, will be added
+Probably another kind of attack, smash, will be added.
 
 # Main menu
 
@@ -40,14 +40,18 @@ in development and you may be in such a situation that nor you nor the AI can de
 
 # Damage
 
-At the moment the damage done is calculated differently for each kind of attack:
-pierce, slash depend on STR
-magic depends on INT
-ranged depends on AGI
-The possible  maximum damage dealt is based on one of the stats and the damage modifier of
+At the moment, the damage is based on different stats for each kind of attack
+as follows:
+<ul>
+<li>pierce, slash depend on STR
+<li>magic depends on INT
+<li>ranged depends on AGI
+</ul>
+The possible maximum damage dealt is based on one of the stats and the damage modifier of
 the currently equipped weapon.
 The amount of damage prevented depends on RES and the damage reducer of the currently
 equipper armor.
+More details may be added in the future.
 
 # Saving
 
