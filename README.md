@@ -1,20 +1,23 @@
 # About this project
 
-This project has as main aim to build the core of a simple rpg-like game.
+This project has as main aim to build the base for a simple rpg-like game.
 
 # How to get and run game_core
 
-Download with git (using <code>git clone https://github.com/Thalos12/game_core</code>),
-navigate to the directory through the terminal then type <code>python main.py</code>.
-There is no tutorial at the moment: you can only create a profile (soon we will add a
-complete battle experience against bots).
+Download with git (<code>git clone https://github.com/Thalos12/game_core</code>) then
+navigate to the directory through the terminal and type <code>python main.py</code>.
+
+# How to play
+
+At the moment you can only create a profile, but we expect to be able to add a complete
+battle against bots in a few updates.
 
 # Choosing a name for the profile
 
 The game will consider upper case letters as different from lower case letter.
 Profiles named pippo, Pippo, PIPPO, PiPpO, etc… can all be assigned to different players.
 
-# Details of the profile
+# Structure of the profile
 
 Your profile has three main aspects for now:
 <ul>
@@ -28,29 +31,30 @@ ranged attacks.
 Armor stats are NAME, KIND, DESCRIPTION and damage reducers for pierce, slash, magic and
 ranged attacks.
 More features will be available in the future, such as skills.
-Probably another kind of attack, smash, will be added.
+Probably another kind of attack, smash, will be added, to include weapons like maces.
 
 # Main menu
 
-From here you can see the stats of your profile (<code>i</code>), of your current weapon
+From here you can see the stats of your profile (<code>i</code>), current weapon
 (<code>w</code>) and current armor (<code>a</code>).
 You can try to battle an AI enemy (<code>A</code>) but consider that this feature is still
 in development and you may be in such a situation that nor you nor the AI can deal damage
-(damage done is 0) so the fight just goes on endlessly.
+(damage done is 0) so the fight just goes on endlessly. Future updates should correct
+this.
 
 # Damage
 
-At the moment, the damage is based on different stats for each kind of attack
+The estimate of the damage dealt is based on different stats for each kind of attack
 as follows:
 <ul>
 <li>pierce, slash depend on STR
 <li>magic depends on INT
 <li>ranged depends on AGI
 </ul>
-The possible maximum damage dealt is based on one of the stats and the damage modifier of
-the currently equipped weapon.
+The possible maximum damage dealt is based on the damage modifier of the currently
+equipped weapon for the kind of attack you use.
 The amount of damage prevented depends on RES and the damage reducer of the currently
-equipper armor.
+equipper armor for the kind of attack you receive.
 More details may be added in the future.
 
 # Saving
@@ -62,7 +66,8 @@ This is intentional also because there is no way, for now, to modify it
 # New updates
 
 There will be many changes in the code, especially in the beginning.
-Expect your profiles to be deleted in case of changes to the player class.
+Expect your profiles to be deleted (or be unusable) in case of changes to the player 
+class.
 
 # Notice
 

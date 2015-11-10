@@ -17,7 +17,7 @@ logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
 class Game(object):
     def __init__(self):
         print ("\nWelcome dear adventurer! If this is your first time playing, "
-               "then I welcome you and hope you will have a plesant journey. "
+               "then I welcome you and hope you will have a pleasant journey. "
                "If you are already a player,then why are you still here reading "
                "this? Get out there!\n")
 
@@ -33,13 +33,21 @@ class Game(object):
                 self.create_profile(name)
             elif a == 'n':
                 print "Have a good day."
-                sys.exit()
                 logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
+                sys.exit()
             else:
                 print "Sorry, this is not a valid answer."
-                sys.exit()
                 logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
-        self.player = Player(self.load_profile(name))
+                sys.exit()
+        try:
+            self.player = Player(self.load_profile(name))
+        except:
+            print 'Your profile cannot be loaded.'
+            logging.error(('Your profile cannot be loaded. This happens when the player '
+                           'class has been modified in such a way that your profile no '
+                           'longer has the necessary requirements to be loaded. '
+                          'Delete it and start over. We are sorry for the inconvenience.'))
+            sys.exit()
         logging.info("Loaded player profile.")
         print "You are now ready to go!\n"
         #self.player.info() # used only while testing
@@ -60,13 +68,12 @@ class Game(object):
 
     def battle(self):
         bot = Bot(self.load_bot('bot'))
-        #print bot
         battle_manager.Battle_menu(self.player,bot)
         
         
     def create_profile(self,name):
         print "Generating new stats for you."
-        VIT = random.randint(10, 20)
+        VIT = random.randint(20, 30)
         print "Vitality: "+str(VIT)
         time.sleep(print_sleep)
         STR = random.randint(1, 6)
@@ -116,7 +123,7 @@ class Game(object):
 
     def load_bot(self,name):
         try:
-            exec "from core.bots import {}".format(name)
+            exec "from core.bots import {} as bot".format(name)
         except:
             print "Bot was not found."
         return {'NAME':bot.NAME,

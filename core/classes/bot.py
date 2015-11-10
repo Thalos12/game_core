@@ -15,7 +15,7 @@ class Bot(player.Player):
             attacks = ['pierce','slash','magic','ranged']
         i = random.randint(0,len(attacks)-1)
         a = attacks[i]
-        print "{} attacks with magic.".format(self.name)
+        print "{} attacks with {}.".format(self.name,a)
         if a == 'pierce':
             damage = self.stats['STR']*self.weapon.PIERCE_DAMAGE_MODIFIER - target.stats['RES']*target.armor.PIERCE_DAMAGE_REDUCE
         elif a == 'slash':
