@@ -2,19 +2,19 @@ import sys
 import os
 import random
 import time
+import logging
+import update
+from core import battle_manager
 from core.client import client
 from core.classes.player import Player
 from core.classes.bot import Bot
 from core.settings.settings import *
-from core import battle_manager
 
 sys.path.append(os.getcwd())
 
-import logging
-
+# start logging
 logging.basicConfig(filename=os.path.join('core', 'logs', str(int(time.time())) + '.txt'), level=logging.DEBUG)
 logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
-
 
 # noinspection PyPep8Naming
 class Game(object):
@@ -152,11 +152,11 @@ class Game(object):
                "A": "self.battle()",
                "q": "print 'Bye bye '+self.player.name+'.';sys.exit()"}
         s = ("*" * 6 + "MAIN MENU" + "*" * 6 + '\n'
-                                               "i - show player's info\n"
-                                               "w - show weapon's info\n"
-                                               "a - show armor's info\n"
-                                               "A - adventure mode: fight a bot\n"
-                                               "q - quit the game\n")
+             "i - show player's info\n"
+             "w - show weapon's info\n"
+             "a - show armor's info\n"
+             "A - adventure mode: fight a bot\n"
+             "q - quit the game\n")
         print s
         return opt
 
@@ -165,5 +165,10 @@ if __name__ == '__main__':
     root = os.getcwd()
     # sys.path.append(root)
     sys.path.append(os.path.join(root, 'core'))
+
+    check = raw_input('Check for updates?[y,n]').lower()
+    if check == 'y':
+        time.sleep(1)
+        update.update()
 
     game = Game()

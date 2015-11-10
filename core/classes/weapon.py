@@ -19,6 +19,8 @@ class Weapon(object):
 
         self.SLASH_DAMAGE_MODIFIER = weapon.SLASH_DAMAGE_MODIFIER
 
+        self.IMPACT_DAMAGE_MODIFIER = weapon.IMPACT_DAMAGE_MODIFIER
+
         self.MAGIC_DAMAGE_MODIFIER = weapon.MAGIC_DAMAGE_MODIFIER
 
         self.RANGED_DAMAGE_MODIFIER = weapon.RANGED_DAMAGE_MODIFIER
@@ -29,5 +31,6 @@ class Weapon(object):
         print "Description: {}".format(self.DESCRIPTION)
         print "Pierce damage modifier: {}".format(self.PIERCE_DAMAGE_MODIFIER)
         print "Slash damage modifier: {}".format(self.SLASH_DAMAGE_MODIFIER)
+        print "Impact damage modifier: {}".format(self.IMPACT_DAMAGE_MODIFIER)
         print "Magic damage modifier: {}".format(self.MAGIC_DAMAGE_MODIFIER)
         print "Ranged damage modifier: {}\n".format(self.RANGED_DAMAGE_MODIFIER)

@@ -19,6 +19,8 @@ class Armor(object):
 
         self.SLASH_DAMAGE_REDUCE = armor.SLASH_DAMAGE_REDUCE
 
+        self.IMPACT_DAMAGE_REDUCE = armor.IMPACT_DAMAGE_REDUCE
+
         self.MAGIC_DAMAGE_REDUCE = armor.MAGIC_DAMAGE_REDUCE
 
         self.RANGED_DAMAGE_REDUCE = armor.RANGED_DAMAGE_REDUCE
@@ -29,5 +31,6 @@ class Armor(object):
         print "Description: {}".format(self.DESCRIPTION)
         print "Pierce damage reduce: {}".format(self.PIERCE_DAMAGE_REDUCE)
         print "Slash damage reduce: {}".format(self.SLASH_DAMAGE_REDUCE)
+        print "Impact damage reduce: {}".format(self.IMPACT_DAMAGE_REDUCE)
         print "Magic damage reduce: {}".format(self.MAGIC_DAMAGE_REDUCE)
         print "Ranged damage reduce: {}\n".format(self.RANGED_DAMAGE_REDUCE)

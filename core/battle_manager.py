@@ -48,4 +48,8 @@ def Battle_menu(player1, player2):
             break
         distance -= 10
         turns += 1
-    print "Finished the fight.\n"
+    print "Finished the fight."
+    if p1.stats['VIT'] >=0:
+        print '{} won!\n'.format(p1.name)
+    else:
+        print '{} won!\n'.format(p2.name)
