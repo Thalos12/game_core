@@ -7,7 +7,7 @@ class Skill(object):
     def __init__(self, skill_name):
         if skill_name != 'no_skill':
             try:
-                exec "from core.skills import " +skill_name+ " as skill"
+                exec "from core.skills import " + skill_name + " as skill"
             except:
                 print "Unknown weapon."
                 sys.exit()
