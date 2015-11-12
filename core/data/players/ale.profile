@@ -1,0 +1,1 @@
+{'NAME': 'ale', 'AGI': 6, 'LEVEL': 1, 'STR': 3, 'MONEY': 10, 'WEAPON': 'short_sword', 'INT': 5, 'ARMOR': 'tunic', 'VIT': 23, 'ITEMS': [], 'EXP': 0, 'RES': 1, 'SKILL': 'no_skill'}

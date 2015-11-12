@@ -1,13 +1,13 @@
-import sys
+import logging
 import os
 import random
+import sys
 import time
-import logging
-import update
-from core import battle_manager
-from core.client import client
-from core.classes.player import Player
+
+from core import battle_manager, update
 from core.classes.bot import Bot
+from core.classes.player import Player
+from core.client import client
 from core.settings.settings import *
 
 sys.path.append(os.getcwd())
@@ -27,7 +27,7 @@ class Game(object):
         name = raw_input('Insert your name, please: ')
         # noinspection PyBroadException
         try:
-            open(os.path.join(root, 'data', 'players', name + '.profile'))
+            open(os.path.join(root, 'core', 'data', 'players', name + '.profile'))
             print "\nWelcome back {}!\n".format(name)
         except:
             print "\nNo player named {} found.\n".format(name)
@@ -42,6 +42,7 @@ class Game(object):
                 print "Sorry, this is not a valid answer."
                 logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
                 sys.exit()
+        self.player = Player(self.load_profile(name))
         try:
             self.player = Player(self.load_profile(name))
         except:
@@ -102,6 +103,8 @@ class Game(object):
         stats['NAME'] = name
         stats['LEVEL'] = 1
         stats['EXP'] = 0
+        stats['MONEY'] = 10 # gold? silver? bronze?
+        stats['ITEMS'] = []
         stats['VIT'] = VIT
         stats['STR'] = STR
         stats['RES'] = RES
@@ -113,14 +116,14 @@ class Game(object):
         self.save_profile(stats)
 
     def load_profile(self, name):
-        f = open(os.path.join(root, 'data', 'players', name + '.profile'), 'r')
+        f = open(os.path.join(root, 'core', 'data', 'players', name + '.profile'), 'r')
         d = f.readline()
         f.close()
         d = eval(d)
         return d
 
     def save_profile(self, stats):
-        f = open(os.path.join(root, 'data', 'players', stats['NAME'] + '.profile'), 'w')
+        f = open(os.path.join(root, 'core', 'data', 'players', stats['NAME'] + '.profile'), 'w')
         f.write(str(stats))
         f.close()
 
@@ -133,6 +136,8 @@ class Game(object):
                 'DESCRIPTION': bot.DESCRIPTION,
                 'LEVEL': bot.LEVEL,
                 'EXP': bot.EXP,
+                'MONEY':bot.MONEY,
+                'ITEMS':bot.ITEMS,
                 'VIT': bot.VITALITY,
                 'STR': bot.STRENGTH,
                 'RES': bot.RESISTANCE,

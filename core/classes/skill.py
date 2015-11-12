@@ -11,6 +11,8 @@ class Skill(object):
             except:
                 print "Unknown weapon."
                 sys.exit()
+        else:
+            return None
         self.NAME = skill.NAME
         self.DESCRIPTION = skill.DESCRIPTION
 

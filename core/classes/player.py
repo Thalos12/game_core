@@ -15,9 +15,11 @@ class Player(object):
         self.name = stats['NAME']
         self.level = stats['LEVEL']
         self.exp = stats['EXP']
+        self.money = stats['MONEY']
+        self.items = stats['ITEMS']
         self.weapon = weapon.Weapon(stats['WEAPON'])
         self.armor = armor.Armor(stats['ARMOR'])
-        # self.skill = skill.Skill(stats['SKILL'])
+        self.skill = skill.Skill(stats['SKILL'])
         self.isbot = False
 
     def Attack(self, target, distance):
@@ -74,7 +76,7 @@ class Player(object):
         print '{} vitality is now {}.\n'.format(target.name,target.stats['VIT'])
 
     def info(self):
-        l = ["Name", "Level", "Exp", "Vit", "Str", "Res", "Agi", "Int", "Weapon", "Armor", "Skill"]
+        l = ["Name","Level","Exp","Money","ITEMS","Vit","Str","Res","Agi","Int","Weapon","Armor","Skill"]
         print "Player info."
         for element in l:
             value = self.stats[element.upper()]

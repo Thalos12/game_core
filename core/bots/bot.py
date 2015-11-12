@@ -3,6 +3,8 @@ NAME = "Enemy"
 DESCRIPTION = "A simple enemy."
 LEVEL = 1
 EXP = 0
+MONEY = 0
+ITEMS = []
 
 VITALITY = 20
 STRENGTH = 3
@@ -13,4 +15,4 @@ INTELLIGENCE = 3
 WEAPON = 'sword'
 ARMOR = 'tunic'
 
-SKILL = None
+SKILL = 'no_skill'
