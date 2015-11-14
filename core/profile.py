@@ -1,31 +1,44 @@
 import random
 import os
+from archetypes.list import *
+from settings.menu_settings import *
 
 root = os.path.dirname(os.path.realpath(__file__))
 
 # noinspection PyDictCreation,PyDictCreation,PyDictCreation
 def create(name):
+    arch = raw_input('Do you want to choose one from the archetypes?[y/n][default:n]') or 'n'
+    if arch == 'y':
+        list_archetypes()
+        archetype_name = raw_input('Archetype name: ')
+        try:
+            exec 'from archetypes.{} import *'.format(archetype_name)
+        except:
+            print 'Archetype unknown, resorting to random creation.'
+            exec 'from archetypes.random import *'
+    else:
+        exec 'from archetypes.random import *'
     print "Generating new stats for you."
-    VIT = random.randint(20, 30)
-    print "Vitality: " + str(VIT)
+    VIT = random.randint(min_vit, max_vit)
+    print "Vitality: {}".format(VIT)
     time.sleep(print_sleep)
-    STR = random.randint(1, 6)
-    print "Strength: " + str(STR)
+    STR = random.randint(min_str, max_str)
+    print "Strength: {}".format(STR)
     time.sleep(print_sleep)
-    RES = random.randint(1, 6)
-    print "Resistance: " + str(RES)
+    RES = random.randint(min_res, max_res)
+    print "Resistance: {}".format(RES)
     time.sleep(print_sleep)
-    AGI = random.randint(1, 6)
-    print "Agility: " + str(AGI)
+    AGI = random.randint(min_agi, max_agi)
+    print "Agility: {}".format(AGI)
     time.sleep(print_sleep)
-    INT = random.randint(1, 6)
-    print "Intelligence: " + str(INT)
+    INT = random.randint(min_int, max_int)
+    print "Intelligence: {}".format(INT)
     time.sleep(print_sleep)
-    print "\nYour starting weapon is a short sword."
+    print "Weapon: {}.".format(weapon)
     time.sleep(print_sleep)
-    print "Your starting armor is a tunic."
+    print "Armor: {}.".format(armor)
     time.sleep(print_sleep)
-    print "You have no skills at the beginning.\n"
+    print "Skill: {}\n".format(skill)
     time.sleep(print_sleep)
 
     stats = {}
@@ -39,10 +52,10 @@ def create(name):
     stats['RES'] = RES
     stats['AGI'] = AGI
     stats['INT'] = INT
-    stats['WEAPON'] = 'short_sword'
-    stats['ARMOR'] = 'tunic'
-    stats['SKILL'] = 'no_skill'
-    save_profile(stats)
+    stats['WEAPON'] = weapon
+    stats['ARMOR'] = armor
+    stats['SKILL'] = skill
+    save(stats)
 
 
 def load(name):
@@ -56,7 +69,7 @@ def save(stats):
     f = open(os.path.join(root, 'data', 'players', stats['NAME'] + '.profile'), 'w')
     f.write(str(stats))
     f.close()
-
+    
 
 if __name__ == '__main__':
     print __file__

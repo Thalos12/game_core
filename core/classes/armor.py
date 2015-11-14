@@ -6,6 +6,11 @@ import sys
 # noinspection PyBroadException
 class Armor(object):
     def __init__(self, armor_name):
+        if ' ' in armor_name:
+            name = armor_name.split(' ')
+            #print name
+            armor_name = '_'.join(name)
+            #print armor_name
         try:
             exec "from core.armors import " + armor_name + " as armor"
         except:

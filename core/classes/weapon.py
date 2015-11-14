@@ -6,8 +6,13 @@ import sys
 # noinspection PyBroadException
 class Weapon(object):
     def __init__(self, weapon_name):
+        if ' ' in weapon_name:
+            name = weapon_name.split(' ')
+            #print name
+            weapon_name = '_'.join(name)
+            #print weapon_name
         try:
-            exec "from core.weapons import " + weapon_name + " as weapon"
+            exec "from core.weapons import {} as weapon".format(weapon_name)
         except:
             print "Unknown weapon."
             sys.exit()

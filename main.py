@@ -75,12 +75,14 @@ class Game(object):
         opt = {"i": "self.player.info();time.sleep(info_sleep)",
                "w": "self.player.weapon.info();time.sleep(info_sleep)",
                "a": "self.player.armor.info();time.sleep(info_sleep)",
+               "s": "self.player.skill.info();time.sleep(info_sleep)",
                "A": "battle_manager.battle_bot(self.player)",
                "q": "print 'Bye bye '+self.player.name+'.';sys.exit()"}
         s = ("*" * 6 + "MAIN MENU" + "*" * 6 + '\n'
              "i - show player's info\n"
              "w - show weapon's info\n"
              "a - show armor's info\n"
+             "s - show skill's info\n"
              "A - adventure mode: fight a bot\n"
              "q - quit the game\n")
         print s

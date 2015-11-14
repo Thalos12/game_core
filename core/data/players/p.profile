@@ -1,0 +1,1 @@
+{'NAME': 'p', 'AGI': 3, 'LEVEL': 1, 'STR': 5, 'MONEY': 10, 'WEAPON': 'short sword', 'INT': 7, 'ARMOR': 'tunic', 'VIT': 34, 'ITEMS': [], 'EXP': 0, 'RES': 9, 'SKILL': 'no skill'}
