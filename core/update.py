@@ -1,5 +1,10 @@
-import os
+import subprocess
 
 
 def update():
-    print os.popen('git pull origin master').read()
+    git = subprocess.Popen(['git', 'pull'])
+    git.wait()
+
+if __name__ == '__main__':
+    update()
+    update_sub()

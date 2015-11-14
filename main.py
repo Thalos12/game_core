@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     check = raw_input('Check for updates?[y,n][default:n]').lower() or 'n'
     if check == 'y':
-        time.sleep(1)
+        print '\n',
         update.update()
 
     game = Game()
