@@ -31,6 +31,7 @@ class Weapon(object):
         self.RANGED_DAMAGE_MODIFIER = weapon.RANGED_DAMAGE_MODIFIER
 
     def info(self):
+        print "{} Weapon stats {}".format('-'*5,'-'*5)
         print "Name: {}".format(self.NAME)
         print "Kind: {}".format(self.KIND)
         print "Description: {}".format(self.DESCRIPTION)

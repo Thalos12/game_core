@@ -77,10 +77,10 @@ class Player(object):
 
     def info(self):
         l = ["Name","Level","Exp","Money","ITEMS","Vit","Str","Res","Agi","Int","Weapon","Armor","Skill"]
-        print "Player info."
+        print "{:5s} Player info {}".format('-'*5,'-'*5)
         for element in l:
             value = self.stats[element.upper()]
             if "_" in str(value):
                 value = "{} {}".format(value.split("_")[0], value.split("_")[1])
             print "{} : {}".format(element, value)
-        print ''
+        print '\n',

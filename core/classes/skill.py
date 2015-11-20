@@ -25,6 +25,7 @@ class Skill(object):
         self.EFFECT = skill.EFFECT
 
     def info(self):
+        print "{} Skill stats {}".format('-'*5,'-'*5)
         print "Name: {}".format(self.NAME)
         print "Description: {}".format(self.DESCRIPTION)
         print "Damage: {}".format(self.DAMAGE)

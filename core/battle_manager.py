@@ -70,8 +70,8 @@ def Battle_menu(player1, player2):
                 print 'Player {} is attacking.'.format(p2.stats['NAME'])
                 p2.Attack(p1, distance)
             else:
-                p2.bot_Attack(p1, distance)
                 print 'Bot {} is attacking.'.format(p2.stats['NAME'])
+                p2.bot_Attack(p1, distance)
         else:
             break
         time.sleep(print_sleep)

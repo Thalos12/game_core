@@ -18,4 +18,3 @@ max_int = 10
 weapon = 'short sword'
 armor = 'tunic'
 skill = 'no skill'
-

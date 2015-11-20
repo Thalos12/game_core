@@ -45,7 +45,7 @@ def create(name):
     stats['NAME'] = name
     stats['LEVEL'] = 1
     stats['EXP'] = 0
-    stats['MONEY'] = 10 # gold? silver? bronze?
+    stats['MONEY'] = 10 # gold? silver? bronze? banana?
     stats['ITEMS'] = []
     stats['VIT'] = VIT
     stats['STR'] = STR

@@ -31,6 +31,7 @@ class Armor(object):
         self.RANGED_DAMAGE_REDUCE = armor.RANGED_DAMAGE_REDUCE
 
     def info(self):
+        print "{} Armor stats {}".format('-'*5,'-'*5)
         print "Name: {}".format(self.NAME)
         print "Kind: {}".format(self.KIND)
         print "Description: {}".format(self.DESCRIPTION)
