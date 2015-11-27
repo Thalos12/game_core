@@ -11,19 +11,22 @@ navigate to the directory through the terminal and type <code>python main.py</co
 
 At the moment you can only create a profile, but we expect to be able to add a complete
 battle against bots in a few updates.
+Update: added battle mode against ai, needs to be balanced.
 
 # Choosing a name for the profile
 
 The game will consider upper case letters as different from lower case letter.
 Profiles named pippo, Pippo, PIPPO, PiPpO, etc… can all be assigned to different players.
+No two players can have the same name.
 
 # Structure of the profile
 
-Your profile has three main aspects for now:
+Your profile has four main aspects for now:
 <ul>
 <li>character stats
 <li>weapon stats
 <li>armor stats
+<li>skill (under testing)
 </ul>
 Character stats are NAME, DESCRIPTION, LEVEL, EXP VIT, STR, RES, AGI, INT.
 Weapon stats are NAME, KIND, DESCRIPTION and damage modifiers for pierce, slash, magic and
@@ -32,6 +35,7 @@ Armor stats are NAME, KIND, DESCRIPTION and damage reducers for pierce, slash, m
 ranged attacks.
 More features will be available in the future, such as skills.
 Probably another kind of attack, smash, will be added, to include weapons like maces.
+Update: added smash and skill, testing.
 
 # Main menu
 
@@ -67,7 +71,7 @@ This is intentional also because there is no way, for now, to modify it
 
 There will be many changes in the code, especially in the beginning.
 Expect your profiles to be deleted (or be unusable) in case of changes to the player 
-class.
+class or to the profile modile.
 
 # Notice
 
@@ -75,7 +79,7 @@ The game_core code is distributed without any warranty: use it at your own risk.
 
 # Copyright
 
-Anybody can get the code and redistribute it (non commercially).
+Anybody can download the code and redistribute it (non commercially).
 Nobody can claim ownership over the code, with the exception of the author(s).
 Altering the code is allowed, within the limits defined above, but at your own risk: there
-is no warranty on the modified code it.
+is no warranty on the modified code it (in the future this will not be allowed anymore).
