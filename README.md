@@ -1,6 +1,6 @@
 # About this project
 
-This project has as main aim to build the base for a simple rpg-like game.
+This project has as main aim to build a simple rpg-like game.
 
 # How to get and run game_core
 
