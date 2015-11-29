@@ -2,19 +2,22 @@ import sys,os
 import sqlite3 as sql
 root = os.path.dirname(os.path.realpath(__file__))
 
-def save():
-    con = sql.connect(os.path.join(root,'data','players','p.datafile'))
+def save(stats):
+    con = sql.connect(os.path.join(root,'data','players',stats['NAME']+'.datafile'))
 
     with con:
         cur = con.cursor()
-        #cur.execute("SELECT EXISTS(SELECT 1 FROM info WHERE name='{}' LIMIT 1)".format('pippo'))
-        #print cur.fetchone()[0]
-        #sys.exit()
-        if cur.execute("SELECT EXISTS(SELECT 1 FROM info WHERE name='{}' LIMIT 1)".format('pippo')).fetchone()[0] == 1:
-            cur.execute("UPDATE info SET level={1}, exp={2}, money={3} WHERE name='{0}'".format('pippo',1,0,15))
-            print 'updated'
+        if cur.execute("SELECT EXISTS(SELECT 1 FROM info WHERE name=? LIMIT 1)",stats['NAME']).fetchone()[0] == 1:
+            print "Profile exists."
+            cur.execute("UPDATE info SET level=?, exp=?, money=? WHERE name=?",(stats['LEVEL'],stats['EXP'],stats['MONEY'],stats['NAME']))
+            print "Profile updated."
         else:
-            cur.execute("INSERT INTO info VALUES('{}',{},{},{})".format('pippo',1,0,10))
-            print 'inserted'
+            print "Profile doesn't exist."
+            cur.execute("INSERT INTO info VALUES(?,?,?,?)",(stats['NAME'],stats['LEVEL'],stats['EXP'],stats['MONEY']))
+            print 'Profile inserted.'
 if __name__ == '__main__':
-    save()
+    stats = {'NAME':'p',
+             'LEVEL':1,
+             'EXP':0,
+             'MONEY':15}
+    save(stats)
