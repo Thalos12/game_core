@@ -8,7 +8,6 @@ import ConfigParser
 from core import battle_manager
 from core import update
 from core import profile
-from core.classes.bot import Bot
 from core.classes.player import Player
 from core.settings.menu_settings import *
 
