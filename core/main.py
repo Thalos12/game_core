@@ -1,51 +1,36 @@
-import logging
-import os
-import random
 import sys
+import os
+import logging
 import time
-import ConfigParser
 
-from core import battle_manager
-from core import update
-from core import profile
-from core.classes.player import Player
-from core.settings.menu_settings import *
+import battle_manager
+import update
+import profile
+from classes.player import Player
+from settings.menu_settings import *
 
-sys.path.append(os.getcwd())
-
-_version = 'pre-alpha1'
-
-# start logging
-logging.basicConfig(filename=os.path.join('core', 'logs', str(int(time.time())) + '.txt'), level=logging.DEBUG)
-
-logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
-logging.info("game_core version is {}".format(_version))
-
-# load basic configurations
-config = ConfigParser.ConfigParser()
-config.read('game_core.cfg')
-textual = config.get('MODE','textual')
-logging.info("Textual mode is set to {}.".format(textual))
-volume = config.get('AUDIO','volume')
-logging.info("Audio volume is set to {}.".format(volume))
+root = os.path.dirname(os.path.realpath(__file__))
+print root
+sys.path.append(root)
 
 # noinspection PyPep8Naming
 class Game(object):
-    def __init__(self):
-        if textual:
+    def __init__(self,options):
+        
+        if options['textual']:
             print ("\nWelcome dear adventurer! If this is your first time playing, "
-                   "then I welcome you and hope you will have a pleasant journey. "
-                   "If you are already a player,then why are you still here reading "
-                   "this? Get out there!\n")
-            name = raw_input('Insert your name, please: ')
+                   "\nthen I welcome you and hope you will have a pleasant journey. "
+                   "\nIf you are already a player,then why are you still here reading "
+                   "\nthis? Get out there!\n")
+            name = raw_input('==> Insert your name, please: ')
             
         # noinspection PyBroadException
         try:
-            open(os.path.join(root, 'core', 'data', 'players', name + '.profile'))
-            if textual:
+            open(os.path.join(root, 'data', 'players', name + '.profile'))
+            if options['textual']:
                 print "\nWelcome back {}!\n".format(name)
         except:
-            if textual:
+            if options['textual']:
                 print "\nNo player named {} found.\n".format(name)
                 a = raw_input('Would you like to create a new profile?[y/n]').lower() or 'y'
             else:
@@ -53,19 +38,19 @@ class Game(object):
             if a == 'y':
                 profile.create(name)
             elif a == 'n':
-                if textual:
+                if options['textual']:
                     print "Have a good day."
                 logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
                 sys.exit()
             else:
-                if textual:
+                if options['textual']:
                     print "Sorry, this is not a valid answer."
                 logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
                 sys.exit()
         try:
             self.player = Player(profile.load(name))
         except:
-            if textual:
+            if options['textual']:
                 print 'Your profile cannot be loaded.'
             logging.error(('Your profile cannot be loaded. This happens when the player '
                            'class has been modified in such a way that your profile no '
@@ -73,24 +58,24 @@ class Game(object):
                            'Delete it and start over. We are sorry for the inconvenience.'))
             sys.exit()
         logging.info("Loaded player profile.")
-        if textual:
+        if options['textual']:
             print "You are now ready to go!\n"
         # self.player.info() # used only while testing
         # self.player.weapon.info() # same as above
         # self.player.armor.info() # same as above
-        self.run()
+        self.run(options)
 
-    def run(self):
+    def run(self,options):
         logging.info("Running.")
         while True:
-            if textual:
+            if options['textual']:
                 opt = self.show_main_menu()
                 a = raw_input("Please choose one: ")
                 print '\n',
             if a in opt.keys():
                 exec opt[a]
             else:
-                if textual:
+                if options['textual']:
                     print "Command is not valid.\n"
 
     def show_main_menu(self):
@@ -112,14 +97,4 @@ class Game(object):
 
 
 if __name__ == '__main__':
-    root = os.getcwd()
-    # sys.path.append(root)
-    sys.path.append(os.path.join(root, 'core'))
-    if textual:
-        check = raw_input('Check for updates?[y,n][default:n]').lower() or 'n'
-    if check == 'y':
-        if textual:
-            print '\n',
-        update.update()
-
-    game = Game()
+    sys.exit()
