@@ -15,9 +15,6 @@ def create(name,archetype):
         RES = random.randint(min_res, max_res)
         AGI = random.randint(min_agi, max_agi)
         INT = random.randint(min_int, max_int)
-        #print "Weapon: {}.".format(weapon)
-        #print "Armor: {}.".format(armor)
-        #print "Skill: {}".format(skill)
     except:
         gui.notification(None,"Archetype unknown, starting random creation.")
         exec 'from archetypes.random import *'
@@ -26,9 +23,6 @@ def create(name,archetype):
         RES = random.randint(min_res, max_res)
         AGI = random.randint(min_agi, max_agi)
         INT = random.randint(min_int, max_int)
-        #print "Weapon: {}.".format(weapon)
-        #print "Armor: {}.".format(armor)
-        #print "Skill: {}".format(skill)
     s = ("Name: {}\n"
          "Level: {}\n"
          "Exp: {}\n"
@@ -43,8 +37,6 @@ def create(name,archetype):
          "Skill: {}").format(name,1,0,10,VIT,STR,RES,AGI,INT,weapon,armor,skill)
     gui.notification(None,s,caption='Your stats')
 
-    sys.exit()
-
     stats = {}
     stats['NAME'] = name
     stats['LEVEL'] = 1
@@ -58,12 +50,14 @@ def create(name,archetype):
     stats['WEAPON'] = weapon
     stats['ARMOR'] = armor
     stats['SKILL'] = skill
-    save(stats)
     con = sql.connect(os.path.join(root,'data','players',name+'.datafile'))
     with con:
         cur = con.cursor()
-        cur.execute("CREATE TABLE info (name TEXT, level INTEGER, exp INTEGER, money INTEGER)")
-
+        cur.execute("CREATE TABLE info (name TEXT, level INTEGER, exp INTEGER, money INTEGER, "
+                    "vit INTEGER, str INTEGER, res INTEGER, agi INTEGER, int INTEGER)")
+        cur.execute("INSERT INTO info VALUES(?,?,?,?,?,?,?,?,?)", (stats['NAME'],stats['LEVEL'],stats['EXP'],
+                                                                    stats['MONEY'],stats['VIT'],stats['STR'],
+                                                                    stats['RES'],stats['AGI'],stats['INT']))
 
 
 def save(stats):

@@ -31,19 +31,17 @@ class Game(wx.Frame):
                 sys.exit()
             index = gui.single_choice(None,"Please select one of the archetypes.",list_archetypes.get_list())
             if index != None:
-                print 'from archetype'
                 archetype = list_archetypes.get_list()[index]
             else:
-                print 'something not right'
                 sys.exit()
             profiledb.create(name,archetype)
-            sys.exit()
+        sys.exit()
         try:
             stats = profiledb.load(name)
             if stats == 'non-existent':
                 gui.notification(None,'Your profile does not exist.')
                 sys.exit()
-            if stats == 'corrupted':
+            elif stats == 'corrupted':
                 gui.notification(None,'Your data is corrupted, delete it and start over.')
                 sys.exit()
             else:
