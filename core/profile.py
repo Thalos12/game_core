@@ -1,6 +1,6 @@
 import random
 import os
-from archetypes.list import *
+from archetypes.list_archetypes import *
 from settings.menu_settings import *
 
 root = os.path.dirname(os.path.realpath(__file__))

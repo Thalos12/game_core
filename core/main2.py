@@ -3,69 +3,64 @@ import os
 import logging
 import time
 import battle_manager
-import update
-import profile
+import profiledb
 import wx
+from archetypes import list_archetypes
 from classes.player import Player
+from GUI import gui
 from settings.menu_settings import *
 
+
 root = os.path.dirname(os.path.realpath(__file__))
-#print root
 sys.path.append(root)
+
 
 # noinspection PyPep8Naming
 class Game(wx.Frame):
-    def __init__(self,options):
+    def __init__(self, options):
+        super(Game, self).__init__(parent=None, title='Children of the Goddess', size=(300,200), style=wx.MINIMIZE_BOX|wx.CLOSE_BOX)
 
-        super(Game, self).__init__(parent=None, title='Children of the Goddess',size=(300,200),style=wx.MINIMIZE_BOX|wx.CLOSE_BOX)
-        
-        if options['textual']:
-            print ("\nWelcome dear adventurer! If this is your first time playing, "
-                   "\nthen I welcome you and hope you will have a pleasant journey. "
-                   "\nIf you are already a player,then why are you still here reading "
-                   "\nthis? Get out there!\n")
-            name = raw_input('==> Insert your name, please: ')
-        else:
-            name = self.ask_name()
+        name = gui.ask_name(None)
         # noinspection PyBroadException
-        try:
-            open(os.path.join(root, 'data', 'players', name + '.profile'))
-            if options['textual']:
-                print "\nWelcome back {}!\n".format(name)
-        except:
-            if options['textual']:
-                print "\nNo player named {} found.\n".format(name)
-                a = raw_input('Would you like to create a new profile?[y/n]').lower() or 'y'
-            else:
-                sys.exit()
-            if a == 'y':
-                profile.create(name)
-            elif a == 'n':
-                if options['textual']:
-                    print "Have a good day."
+        if os.path.isfile(os.path.join(root, 'data', 'players', name + '.datafile')):
+            gui.welcome_back(None, name)
+        else:
+            name = gui.create_new(None)
+            if name == '':
                 logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
                 sys.exit()
+            index = gui.single_choice(None,"Please select one of the archetypes.",list_archetypes.get_list())
+            if index != None:
+                print 'from archetype'
+                archetype = list_archetypes.get_list()[index]
             else:
-                if options['textual']:
-                    print "Sorry, this is not a valid answer."
-                logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
+                print 'something not right'
                 sys.exit()
+            profiledb.create(name,archetype)
+            sys.exit()
         try:
-            self.player = Player(profile.load(name))
+            stats = profiledb.load(name)
+            if stats == 'non-existent':
+                gui.notification(None,'Your profile does not exist.')
+                sys.exit()
+            if stats == 'corrupted':
+                gui.notification(None,'Your data is corrupted, delete it and start over.')
+                sys.exit()
+            else:
+                self.player = Player(stats)
         except:
-            if options['textual']:
-                print 'Your profile cannot be loaded.'
+            gui.notification(None,'Your profile cannot be loaded.')
             logging.error(('Your profile cannot be loaded. This happens when the player '
                            'class has been modified in such a way that your profile no '
                            'longer has the necessary requirements to be loaded. '
                            'Delete it and start over. We are sorry for the inconvenience.'))
             sys.exit()
         logging.info("Loaded player profile.")
-        if options['textual']:
-            print "You are now ready to go!\n"
+        gui.notification(None,'You are now ready to play!')
         # self.player.info() # used only while testing
         # self.player.weapon.info() # same as above
         # self.player.armor.info() # same as above
+        sys.exit()
         self.main_menu(options)
 
     def main_menu(self,options):
@@ -105,13 +100,6 @@ class Game(wx.Frame):
         else:
             print 'Sorry, only textual mode enabled.'
             sys.exit()
-
-    def ask_name(self):
-        ask = wx.TextEntryDialog(self,message='Name check.',caption='Cheking your name.',style=wx.OK,pos=(200,150))
-        ask.ShowModal()
-        name = ask.GetValue()
-        ask.Destroy()
-        return name
 
 
 if __name__ == '__main__':

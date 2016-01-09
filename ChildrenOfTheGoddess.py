@@ -4,29 +4,28 @@ import sys
 import os
 import logging
 import time
-import ConfigParser
-from core import main
+import argparse
+import wx
+from core import main, main2
 
-def boot():
-    # start logging
-    logging.basicConfig(filename=os.path.join('core', 'logs', str(int(time.time())) + '.txt'), level=logging.DEBUG)
-    logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
-    logging.info("game_core version is {}".format(_version))
+# read options
+parser = argparse.ArgumentParser(description='Start the game "Children of the Goddess".')
+parser.add_argument('--textual',help="Disable GUI",default=False,action='store_true')
+parser.add_argument('--mute',help="Disable sound and music.",default=False,action='store_true')
+args = parser.parse_args()
+options={}
+options['textual'] = args.textual
+options['mute'] = args.mute
 
-    # load basic configurations
-    options={}
-    config = ConfigParser.ConfigParser()
-    config.read('options.cfg')
-    textual = config.get('MODE','textual')
-    logging.info("Textual mode is set to {}.".format(textual))
-    options['textual'] = textual
-    volume = config.get('AUDIO','volume')
-    logging.info("Audio volume is set to {}.".format(volume))
-    options['volume'] = volume
-
-    main.Game(options)
+# start logging
+logging.basicConfig(filename=os.path.join('core', 'logs', str(int(time.time())) + '.txt'), level=logging.DEBUG)
+logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
+logging.info("\"Children of the Goddess\" version is {}".format(_version))
+logging.info("Textual mode is set to {}.".format(options['textual']))
+logging.info("Audio mute is set to {}.".format(options['mute']))
 
 
-
-if __name__ == '__main__':
-    boot()
+app = wx.App(False)
+#frame = main.Game(options)
+frame = main2.Game(options)
+app.MainLoop()
