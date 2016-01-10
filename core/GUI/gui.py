@@ -1,3 +1,4 @@
+# coding=utf-8
 import wx
 
 def ask_name(parent):
@@ -21,6 +22,56 @@ def notification(parent,message,caption='Notification'):
     message.Center()
     message.ShowModal()
     message.Destroy()
+
+def show_player_info(parent,stats):
+    s = ("Name: {}\n"
+         "Level: {}\n"
+         "Exp: {}\n"
+         "Money: {}\n"
+         "Vitality: {}\n"
+         "Strength: {}\n"
+         "Resistance: {}\n"
+         "Agility: {}\n"
+         "Intelligence: {}\n"
+         "Weapon: {}\n"
+         "Armor: {}\n"
+         "Skill: {}").format(stats['NAME'],stats['LEVEL'],stats['EXP'], stats['MONEY'],stats['VIT'],stats['STR'],
+                             stats['RES'],stats['AGI'],stats['INT'],stats['WEAPON'],stats['ARMOR'],stats['SKILL'])
+    notification(parent,s,"Your stats")
+
+def show_weapon_info(parent,weapon):
+    s = ("Name: {}\n"
+         "Kind: {}\n"
+         "Description: {}\n"
+         "Pierce damage modifier: {}\n"
+         "Slash damage modifier: {}\n"
+         "Impact damage modifier: {}\n"
+         "Ranged damage modifier: {}\n"
+         "Magic damage modifier: {}\n").format(weapon.NAME, weapon.KIND, weapon.DESCRIPTION,
+                                               weapon.PIERCE_DAMAGE_MODIFIER, weapon.SLASH_DAMAGE_MODIFIER,
+                                               weapon.IMPACT_DAMAGE_MODIFIER, weapon.RANGED_DAMAGE_MODIFIER,
+                                               weapon.MAGIC_DAMAGE_MODIFIER)
+    notification(parent,s,"Your weapon's stats")
+
+def show_armor_info(parent,armor):
+    s = ("Name: {}\n"
+         "Kind: {}\n"
+         "Description: {}\n"
+         "Pierce damage reduce: {}\n"
+         "Slash damage reduce: {}\n"
+         "Impact damage reduce: {}\n"
+         "Ranged damage reduce: {}\n"
+         "Magic damage reduce: {}\n").format(armor.NAME, armor.KIND, armor.DESCRIPTION,
+                                               armor.PIERCE_DAMAGE_REDUCE, armor.SLASH_DAMAGE_REDUCE,
+                                               armor.IMPACT_DAMAGE_REDUCE, armor.RANGED_DAMAGE_REDUCE,
+                                               armor.MAGIC_DAMAGE_REDUCE)
+    notification(parent,s,"Your armor's stats")
+
+def show_skill_info(parent,skill):
+    s = ("Name: {}\n"
+         "Description: {}\n"
+         "Effect: {}\n").format(skill.NAME, skill.DESCRIPTION, skill.EFFECT)
+    notification(parent,s,"Your skill's stats")
 
 def single_choice(parent,message,choices):
     sc = wx.SingleChoiceDialog(parent, message=message, caption='Choose one', choices=choices)

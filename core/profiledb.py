@@ -23,19 +23,6 @@ def create(name,archetype):
         RES = random.randint(min_res, max_res)
         AGI = random.randint(min_agi, max_agi)
         INT = random.randint(min_int, max_int)
-    s = ("Name: {}\n"
-         "Level: {}\n"
-         "Exp: {}\n"
-         "Money: {}\n"
-         "Vitality: {}\n"
-         "Strength: {}\n"
-         "Resistance: {}\n"
-         "Agility: {}\n"
-         "Intelligence: {}\n"
-         "Weapon: {}\n"
-         "Armor: {}\n"
-         "Skill: {}").format(name,1,0,10,VIT,STR,RES,AGI,INT,weapon,armor,skill)
-    gui.notification(None,s,caption='Your stats')
 
     stats = {}
     stats['NAME'] = name
@@ -50,15 +37,19 @@ def create(name,archetype):
     stats['WEAPON'] = weapon
     stats['ARMOR'] = armor
     stats['SKILL'] = skill
+
+    gui.show_player_info(None,stats)
+
     con = sql.connect(os.path.join(root,'data','players',name+'.datafile'))
     with con:
         cur = con.cursor()
         cur.execute("CREATE TABLE info (name TEXT, level INTEGER, exp INTEGER, money INTEGER, "
-                    "vit INTEGER, str INTEGER, res INTEGER, agi INTEGER, int INTEGER)")
-        cur.execute("INSERT INTO info VALUES(?,?,?,?,?,?,?,?,?)", (stats['NAME'],stats['LEVEL'],stats['EXP'],
-                                                                    stats['MONEY'],stats['VIT'],stats['STR'],
-                                                                    stats['RES'],stats['AGI'],stats['INT']))
-
+                    "vit INTEGER, str INTEGER, res INTEGER, agi INTEGER, int INTEGER,"
+                    "weapon TEXT, armor TEXT, skill TEXT)")
+        cur.execute("INSERT INTO info VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", (stats['NAME'],stats['LEVEL'],stats['EXP'],
+                                                                         stats['MONEY'],stats['VIT'],stats['STR'],
+                                                                         stats['RES'],stats['AGI'],stats['INT'],
+                                                                         stats['WEAPON'],stats['ARMOR'],stats['SKILL']))
 
 def save(stats):
     print "SAVING"
@@ -72,26 +63,33 @@ def save(stats):
         else:
             print "Profile does not exist."
             cur.execute("INSERT INTO info VALUES(?,?,?,?)", (stats['NAME'], stats['LEVEL'], stats['EXP'], stats['MONEY']))
-            print 'Profile inserted.'
+            print 'Profile saved.'
     print '\n',
 
 def load(name):
-    print "LOADING"
     try:
         con = sql.connect(os.path.join(root,'data','players',str(name)+'.datafile'))
     except:
         return 'non-existent'
     with con:
         cur = con.cursor()
+
         if cur.execute(("SELECT name FROM info")).fetchone()[0] != name:
             return 'corrupted'
-        stats = {'NAME':name}
-        stats['LEVEL'] = cur.execute("SELECT level FROM info WHERE name=?",str(name)).fetchone()[0]
-        stats['EXP'] = cur.execute("SELECT exp FROM info WHERE name=?",str(name)).fetchone()[0]
-        stats['MONEY'] = cur.execute("SELECT money FROM info WHERE name=?",str(name)).fetchone()[0]
-        print stats
-    print '\n',
-    return stats
+        stats = {}
+        stats['NAME'] = cur.execute("SELECT name FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['LEVEL'] = cur.execute("SELECT level FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['EXP'] = cur.execute("SELECT exp FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['MONEY'] = cur.execute("SELECT money FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['VIT'] = cur.execute("SELECT vit FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['STR'] = cur.execute("SELECT str FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['RES'] = cur.execute("SELECT res FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['AGI'] = cur.execute("SELECT agi FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['INT'] = cur.execute("SELECT int FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['WEAPON'] = cur.execute("SELECT weapon FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['ARMOR'] = cur.execute("SELECT armor FROM info WHERE name=?",(name,)).fetchone()[0]
+        stats['SKILL'] = cur.execute("SELECT skill FROM info WHERE name=?",(name,)).fetchone()[0]
+        return stats
 
 if __name__ == '__main__':
     stats = {'NAME':'p', 'LEVEL':1, 'EXP':0, 'MONEY':25}

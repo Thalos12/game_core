@@ -5,7 +5,7 @@ NAME = 'Kick'
 DESCRIPTION = "A kick that deals little damage."
 
 REQUIRED_LEVEL = 1
-REQUIRED_CLASS = ['soldier']
+REQUIRED_CLASS = []
 
-DAMAGE = 5
-EFFECT = ["ignore_armor"]
+EFFECT = ["stun:1%20","damage:5"]
+COOLDOWN = 1

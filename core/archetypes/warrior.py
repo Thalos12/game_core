@@ -17,4 +17,4 @@ max_int = 4
 
 weapon = 'bastard sword'
 armor = 'bronze armor'
-skill = 'str up'
+skill = 'strength1'

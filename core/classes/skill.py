@@ -1,6 +1,7 @@
 __author__ = 'mazzalex02'
 
 import sys
+from core.GUI import gui
 
 
 class Skill(object):
@@ -21,12 +22,7 @@ class Skill(object):
         self.REQUIRED_LEVEL = skill.REQUIRED_LEVEL
         self.REQUIRED_CLASS = skill.REQUIRED_CLASS
 
-        self.DAMAGE = skill.DAMAGE
         self.EFFECT = skill.EFFECT
 
-    def info(self):
-        print "{} Skill stats {}".format('-'*5,'-'*5)
-        print "Name: {}".format(self.NAME)
-        print "Description: {}".format(self.DESCRIPTION)
-        print "Damage: {}".format(self.DAMAGE)
-        print "Effects: {}\n".format(self.EFFECT)
+    def info(self,*args):
+        gui.show_skill_info(None,self)

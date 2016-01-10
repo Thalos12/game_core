@@ -35,17 +35,16 @@ class Game(wx.Frame):
             else:
                 sys.exit()
             profiledb.create(name,archetype)
-        sys.exit()
+
+        stats = profiledb.load(name)
+        if stats == 'non-existent':
+            gui.notification(None,'Your profile does not exist.')
+            sys.exit()
+        elif stats == 'corrupted':
+            gui.notification(None,'Your data is corrupted, delete it and start over.')
+            sys.exit()
         try:
-            stats = profiledb.load(name)
-            if stats == 'non-existent':
-                gui.notification(None,'Your profile does not exist.')
-                sys.exit()
-            elif stats == 'corrupted':
-                gui.notification(None,'Your data is corrupted, delete it and start over.')
-                sys.exit()
-            else:
-                self.player = Player(stats)
+            self.player = Player(stats)
         except:
             gui.notification(None,'Your profile cannot be loaded.')
             logging.error(('Your profile cannot be loaded. This happens when the player '
@@ -53,52 +52,38 @@ class Game(wx.Frame):
                            'longer has the necessary requirements to be loaded. '
                            'Delete it and start over. We are sorry for the inconvenience.'))
             sys.exit()
-        logging.info("Loaded player profile.")
-        gui.notification(None,'You are now ready to play!')
-        # self.player.info() # used only while testing
-        # self.player.weapon.info() # same as above
-        # self.player.armor.info() # same as above
-        sys.exit()
+        gui.notification(None,'You are now ready to play!',caption="Loaded player profile")
+
+        logging.info("Running.")
         self.main_menu(options)
 
     def main_menu(self,options):
-        logging.info("Running.")
 
-        if options['textual']:
-            while True:
-                s = ("*"*6 + " MAIN MENU " + "*"*6 + '\n'
-                     "i - show player's info\n"
-                     "w - show weapon's info\n"
-                     "a - show armor's info\n"
-                     "s - show skill's info\n"
-                     "A - adventure mode: fight a bot\n"
-                     "q - quit the game\n")
-                print s
-                a = raw_input("Please choose one: ")
-                print '\n',
-                if a=='i':
-                    self.player.info()
-                    time.sleep(info_sleep)
-                elif a=='w':
-                    self.player.weapon.info()
-                    time.sleep(info_sleep)
-                elif a=='a':
-                    self.player.armor.info()
-                    time.sleep(info_sleep)
-                elif a=='s':
-                    self.player.skill.info()
-                    time.sleep(info_sleep)
-                elif a=='A':
-                    battle_manager.battle_bot(self.player)
-                elif a=='q':
-                    print 'Bye bye '+self.player.name+'.'
-                    sys.exit()
-                else:
-                    print "Command is not valid.\n"
-        else:
-            print 'Sorry, only textual mode enabled.'
-            sys.exit()
+        self.menu_panel = wx.Panel(self)
 
+        b1 = wx.Button(self.menu_panel,label='Player info')
+        b1.Bind(wx.EVT_BUTTON, self.player.info)
+
+        b2 = wx.Button(self.menu_panel,label='Weapon info')
+        b2.Bind(wx.EVT_BUTTON, self.player.weapon.info)
+
+        b3 = wx.Button(self.menu_panel,label='Armor info')
+        b3.Bind(wx.EVT_BUTTON, self.player.armor.info)
+
+        b4 = wx.Button(self.menu_panel,label='Skill info')
+        b4.Bind(wx.EVT_BUTTON, self.player.skill.info)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.AddMany([(b1,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
+                       (b2,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
+                       (b3,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
+                       (b4,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10)])
+
+        self.menu_panel.SetSizer(sizer)
+        self.menu_panel.Fit()
+
+        self.Center()
+        self.Show(True)
 
 if __name__ == '__main__':
     sys.exit()

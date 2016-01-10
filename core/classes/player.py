@@ -3,6 +3,7 @@ import os
 import armor
 import weapon
 import skill
+from core.GUI import gui
 
 
 # import core.client as client
@@ -12,15 +13,13 @@ import skill
 class Player(object):
     def __init__(self, stats):
         self.stats = stats
-        self.name = stats['NAME']
-        self.level = stats['LEVEL']
-        self.exp = stats['EXP']
-        self.money = stats['MONEY']
-        self.items = stats['ITEMS']
         self.weapon = weapon.Weapon(stats['WEAPON'])
         self.armor = armor.Armor(stats['ARMOR'])
         self.skill = skill.Skill(stats['SKILL'])
         self.isbot = False
+
+    def info(self,*args):
+        gui.show_player_info(None,self.stats)
 
     def Attack(self, target, distance):
         print '{} attacks {}.'.format(self.name,target.name)
@@ -74,13 +73,3 @@ class Player(object):
         print '{} deals {} to {}.'.format(self.name,damage,target.name)
         target.stats['VIT'] -= damage
         print '{} vitality is now {}.\n'.format(target.name,target.stats['VIT'])
-
-    def info(self):
-        l = ["Name","Level","Exp","Money","ITEMS","Vit","Str","Res","Agi","Int","Weapon","Armor","Skill"]
-        print "{:5s} Player info {}".format('-'*5,'-'*5)
-        for element in l:
-            value = self.stats[element.upper()]
-            if "_" in str(value):
-                value = "{} {}".format(value.split("_")[0], value.split("_")[1])
-            print "{} : {}".format(element, value)
-        print '\n',

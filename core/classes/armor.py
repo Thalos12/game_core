@@ -1,7 +1,7 @@
 __author__ = 'mazzalex02'
 
 import sys
-
+from core.GUI import gui
 
 # noinspection PyBroadException
 class Armor(object):
@@ -30,13 +30,5 @@ class Armor(object):
 
         self.RANGED_DAMAGE_REDUCE = armor.RANGED_DAMAGE_REDUCE
 
-    def info(self):
-        print "{} Armor stats {}".format('-'*5,'-'*5)
-        print "Name: {}".format(self.NAME)
-        print "Kind: {}".format(self.KIND)
-        print "Description: {}".format(self.DESCRIPTION)
-        print "Pierce damage reduce: {}".format(self.PIERCE_DAMAGE_REDUCE)
-        print "Slash damage reduce: {}".format(self.SLASH_DAMAGE_REDUCE)
-        print "Impact damage reduce: {}".format(self.IMPACT_DAMAGE_REDUCE)
-        print "Magic damage reduce: {}".format(self.MAGIC_DAMAGE_REDUCE)
-        print "Ranged damage reduce: {}\n".format(self.RANGED_DAMAGE_REDUCE)
+    def info(self,*args):
+        gui.show_armor_info(None,self)
