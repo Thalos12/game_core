@@ -2,6 +2,7 @@ import sys
 import os
 import logging
 import time
+import cStringIO
 import battle_manager
 import profiledb
 import wx
@@ -63,26 +64,37 @@ class Game(wx.Frame):
 
         b1 = wx.Button(self.menu_panel,label='Player info')
         b1.Bind(wx.EVT_BUTTON, self.player.info)
-
         b2 = wx.Button(self.menu_panel,label='Weapon info')
         b2.Bind(wx.EVT_BUTTON, self.player.weapon.info)
-
         b3 = wx.Button(self.menu_panel,label='Armor info')
         b3.Bind(wx.EVT_BUTTON, self.player.armor.info)
-
         b4 = wx.Button(self.menu_panel,label='Skill info')
         b4.Bind(wx.EVT_BUTTON, self.player.skill.info)
-
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.AddMany([(b1,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
+        sizer1 = wx.BoxSizer(wx.VERTICAL)
+        sizer1.AddMany([(b1,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
                        (b2,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
                        (b3,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
-                       (b4,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10)])
+                       (b4,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.BOTTOM|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10)])
 
-        self.menu_panel.SetSizer(sizer)
+        imageFile = os.path.join(root,'land.jpg')
+        data = open(imageFile, "rb").read()
+        stream = cStringIO.StringIO(data)
+        bmp = wx.BitmapFromImage( wx.ImageFromStream( stream ))
+        bmp.SetWidth(bmp.GetWidth()/10)
+        bmp.SetHeight(bmp.GetHeight()/10)
+        bitmap = wx.StaticBitmap(self.menu_panel, -1, bmp, (5, 5))
+        sizer2 = wx.BoxSizer(wx.VERTICAL)
+        sizer2.Add(bitmap,0,wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10)
+
+        self.menu_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.menu_sizer.AddMany([(sizer2,0,wx.ALL|wx.EXPAND,10),
+                                 (sizer1,0,wx.ALL|wx.EXPAND,10)])
+        self.menu_panel.SetSizer(self.menu_sizer)
         self.menu_panel.Fit()
 
+
         self.Center()
+        self.Fit()
         self.Show(True)
 
 if __name__ == '__main__':
