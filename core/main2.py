@@ -76,7 +76,7 @@ class Game(wx.Frame):
                        (b3,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
                        (b4,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.BOTTOM|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10)])
 
-        imageFile = os.path.join(root,'land.jpg')
+        imageFile = os.path.join(root,'graphics','images','land.jpg')
         data = open(imageFile, "rb").read()
         stream = cStringIO.StringIO(data)
         bmp = wx.BitmapFromImage( wx.ImageFromStream( stream ))
