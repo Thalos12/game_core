@@ -10,18 +10,15 @@ from core import main, main2
 
 # read options
 parser = argparse.ArgumentParser(description='Start the game "Children of the Goddess".')
-parser.add_argument('--textual',help="Disable GUI",default=False,action='store_true')
 parser.add_argument('--mute',help="Disable sound and music.",default=False,action='store_true')
 args = parser.parse_args()
 options={}
-options['textual'] = args.textual
 options['mute'] = args.mute
 
 # start logging
 logging.basicConfig(filename=os.path.join('core', 'logs', str(int(time.time())) + '.txt'), level=logging.DEBUG)
 logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
 logging.info("\"Children of the Goddess\" version is {}".format(_version))
-logging.info("Textual mode is set to {}.".format(options['textual']))
 logging.info("Audio mute is set to {}.".format(options['mute']))
 
 

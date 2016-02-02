@@ -1,5 +1,6 @@
 # coding=utf-8
 import wx
+import os
 
 def ask_name(parent):
     ask = wx.TextEntryDialog(parent, message='Checking your name.', caption='Name check', style=wx.OK)
@@ -10,7 +11,7 @@ def ask_name(parent):
     return name
 
 def create_new(parent):
-    dialog = wx.TextEntryDialog(parent, message='You need to create a new profile.\nEnter a nickname, please.', caption='New profile', style=wx.OK)
+    dialog = wx.TextEntryDialog(parent, message='You need to enter a nickname, please.', caption='New profile', style=wx.OK)
     dialog.Center()
     dialog.ShowModal()
     name = dialog.GetValue()
@@ -82,6 +83,23 @@ def single_choice(parent,message,choices):
         choice = None
     sc.Destroy()
     return choice
+
+def stats_page(parent,player,frame_size):
+    page = wx.Panel(parent)
+
+    sizer1 = wx.BoxSizer(wx.VERTICAL)
+    sizer2 = wx.BoxSizer(wx.VERTICAL)
+    for element in player.stats.keys():
+        label1 = wx.StaticText(page,label=element.lower())
+        label2 = wx.StaticText(page,label=str(player.stats[element]))
+        sizer1.Add(label1,0,wx.ALL,10)
+        sizer2.Add(label2,0,wx.ALL,10)
+
+    page_sizer = wx.BoxSizer(wx.HORIZONTAL)
+    page_sizer.AddMany([(sizer1,0,wx.ALL,10),
+                        (sizer2,0,wx.ALL,10)])
+    page.SetSizer(page_sizer)
+    return page
 
 def welcome_back(parent,name):
     welcome = wx.MessageDialog(parent, message='Welcome back '+name+'!', caption='Message', style=wx.OK|wx.ICON_INFORMATION)

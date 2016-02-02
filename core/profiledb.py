@@ -51,20 +51,10 @@ def create(name,archetype):
                                                                          stats['RES'],stats['AGI'],stats['INT'],
                                                                          stats['WEAPON'],stats['ARMOR'],stats['SKILL']))
 
-def save(stats):
-    print "SAVING"
-    con = sql.connect(os.path.join(root,'data','players',stats['NAME']+'.datafile'))
-    with con:
-        cur = con.cursor()
-        if cur.execute("SELECT EXISTS(SELECT 1 FROM info WHERE name=? LIMIT 1)", stats['NAME']).fetchone()[0] == 1:
-            print "Profile exists."
-            cur.execute("UPDATE info SET level=?, exp=?, money=? WHERE name=?", (stats['LEVEL'], stats['EXP'], stats['MONEY'], stats['NAME']))
-            print "Profile updated."
-        else:
-            print "Profile does not exist."
-            cur.execute("INSERT INTO info VALUES(?,?,?,?)", (stats['NAME'], stats['LEVEL'], stats['EXP'], stats['MONEY']))
-            print 'Profile saved.'
-    print '\n',
+def list_all():
+    folder = 'core/data/players'
+    names = [ f.split('.')[0] for f in os.listdir(folder) if os.path.isfile(os.path.join(folder,f)) ]
+    return names
 
 def load(name):
     try:
@@ -90,6 +80,21 @@ def load(name):
         stats['ARMOR'] = cur.execute("SELECT armor FROM info WHERE name=?",(name,)).fetchone()[0]
         stats['SKILL'] = cur.execute("SELECT skill FROM info WHERE name=?",(name,)).fetchone()[0]
         return stats
+
+def save(stats):
+    print "SAVING"
+    con = sql.connect(os.path.join(root,'data','players',stats['NAME']+'.datafile'))
+    with con:
+        cur = con.cursor()
+        if cur.execute("SELECT EXISTS(SELECT 1 FROM info WHERE name=? LIMIT 1)", stats['NAME']).fetchone()[0] == 1:
+            print "Profile exists."
+            cur.execute("UPDATE info SET level=?, exp=?, money=? WHERE name=?", (stats['LEVEL'], stats['EXP'], stats['MONEY'], stats['NAME']))
+            print "Profile updated."
+        else:
+            print "Profile does not exist."
+            cur.execute("INSERT INTO info VALUES(?,?,?,?)", (stats['NAME'], stats['LEVEL'], stats['EXP'], stats['MONEY']))
+            print 'Profile saved.'
+    print '\n',
 
 if __name__ == '__main__':
     stats = {'NAME':'p', 'LEVEL':1, 'EXP':0, 'MONEY':25}

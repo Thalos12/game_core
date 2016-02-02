@@ -19,23 +19,29 @@ sys.path.append(root)
 # noinspection PyPep8Naming
 class Game(wx.Frame):
     def __init__(self, options):
-        super(Game, self).__init__(parent=None, title='Children of the Goddess', size=(300,200), style=wx.MINIMIZE_BOX|wx.CLOSE_BOX)
+        super(Game, self).__init__(parent=None, title='Children of the Goddess', size=(600,400), style=wx.MINIMIZE_BOX|wx.CLOSE_BOX)
 
-        name = gui.ask_name(None)
-        # noinspection PyBroadException
-        if os.path.isfile(os.path.join(root, 'data', 'players', name + '.datafile')):
-            gui.welcome_back(None, name)
+        names = profiledb.list_all()
+        sorted(names, key=str.lower)
+        names.insert(0,'Create new')
+
+        name_index = gui.single_choice(None,"Load or create a profile.",names)
+        if name_index!=None:
+            name = names[name_index]
         else:
+            gui.notification(None,"Nothing selected.")
+            sys.exit()
+
+        if name == 'Create new':
             name = gui.create_new(None)
-            if name == '':
-                logging.info("{}".format(time.strftime("END LOG: %d %b %Y, %H:%M:%S")))
-                sys.exit()
             index = gui.single_choice(None,"Please select one of the archetypes.",list_archetypes.get_list())
             if index != None:
                 archetype = list_archetypes.get_list()[index]
+                profiledb.create(name,archetype)
             else:
-                sys.exit()
-            profiledb.create(name,archetype)
+                gui.notification(None,"No archetype selected.")
+        else:
+            gui.welcome_back(None,name)
 
         stats = profiledb.load(name)
         if stats == 'non-existent':
@@ -59,42 +65,33 @@ class Game(wx.Frame):
         self.main_menu(options)
 
     def main_menu(self,options):
-
         self.menu_panel = wx.Panel(self)
 
-        b1 = wx.Button(self.menu_panel,label='Player info')
-        b1.Bind(wx.EVT_BUTTON, self.player.info)
-        b2 = wx.Button(self.menu_panel,label='Weapon info')
-        b2.Bind(wx.EVT_BUTTON, self.player.weapon.info)
-        b3 = wx.Button(self.menu_panel,label='Armor info')
-        b3.Bind(wx.EVT_BUTTON, self.player.armor.info)
-        b4 = wx.Button(self.menu_panel,label='Skill info')
-        b4.Bind(wx.EVT_BUTTON, self.player.skill.info)
-        sizer1 = wx.BoxSizer(wx.VERTICAL)
-        sizer1.AddMany([(b1,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
-                       (b2,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
-                       (b3,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10),
-                       (b4,0,wx.LEFT|wx.RIGHT|wx.TOP|wx.BOTTOM|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10)])
+        notebook = wx.Notebook(self.menu_panel)
 
+        pg1 = wx.Panel(notebook)
         imageFile = os.path.join(root,'graphics','images','land.jpg')
         data = open(imageFile, "rb").read()
         stream = cStringIO.StringIO(data)
         bmp = wx.BitmapFromImage( wx.ImageFromStream( stream ))
-        bmp.SetWidth(bmp.GetWidth()/10)
-        bmp.SetHeight(bmp.GetHeight()/10)
-        bitmap = wx.StaticBitmap(self.menu_panel, -1, bmp, (5, 5))
+        bmp.SetWidth(self.Size[0]-20)
+        bmp.SetHeight(self.Size[1]-20)
+        bitmap = wx.StaticBitmap(pg1, -1, bmp, (5, 5))
         sizer2 = wx.BoxSizer(wx.VERTICAL)
         sizer2.Add(bitmap,0,wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL,10)
+        pg1.SetSizer(sizer2)
+
+        pg2 = gui.stats_page(notebook,self.player,self.Size)
+
+        notebook.AddPage(pg1,"Image")
+        notebook.AddPage(pg2,"Stats")
 
         self.menu_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.menu_sizer.AddMany([(sizer2,0,wx.ALL|wx.EXPAND,10),
-                                 (sizer1,0,wx.ALL|wx.EXPAND,10)])
+        self.menu_sizer.Add(notebook,1,wx.EXPAND)
         self.menu_panel.SetSizer(self.menu_sizer)
-        self.menu_panel.Fit()
 
 
         self.Center()
-        self.Fit()
         self.Show(True)
 
 if __name__ == '__main__':
