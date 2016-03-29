@@ -11,10 +11,12 @@ def ask_name(parent):
     return name
 
 def create_new(parent):
-    dialog = wx.TextEntryDialog(parent, message='You need to enter a nickname, please.', caption='New profile', style=wx.OK)
+    dialog = wx.TextEntryDialog(parent, message='Please, enter a nickname.', caption='New profile', style=wx.OK)
     dialog.Center()
-    dialog.ShowModal()
-    name = dialog.GetValue()
+    if dialog.ShowModal() == wx.ID_OK:
+        name = dialog.GetValue()
+    else:
+        name = "Invalid"
     dialog.Destroy()
     return name
 
@@ -38,7 +40,7 @@ def show_player_info(parent,stats):
          "Armor: {}\n"
          "Skill: {}").format(stats['NAME'],stats['LEVEL'],stats['EXP'], stats['MONEY'],stats['VIT'],stats['STR'],
                              stats['RES'],stats['AGI'],stats['INT'],stats['WEAPON'],stats['ARMOR'],stats['SKILL'])
-    notification(parent,s,"Your stats")
+    notification(parent,s,caption="Your stats")
 
 def show_weapon_info(parent,weapon):
     s = ("Name: {}\n"
@@ -87,10 +89,11 @@ def single_choice(parent,message,choices):
 def stats_page(parent,player,frame_size):
     page = wx.Panel(parent)
 
+    l = ['NAME','LEVEL','EXP','MONEY','VIT','STR','RES','AGI','INT','WEAPON','ARMOR','SKILL']
     sizer1 = wx.BoxSizer(wx.VERTICAL)
     sizer2 = wx.BoxSizer(wx.VERTICAL)
-    for element in player.stats.keys():
-        label1 = wx.StaticText(page,label=element.lower())
+    for element in l:
+        label1 = wx.StaticText(page,label=element[0]+element[1:].lower())
         label2 = wx.StaticText(page,label=str(player.stats[element]))
         sizer1.Add(label1,0,wx.ALL,10)
         sizer2.Add(label2,0,wx.ALL,10)

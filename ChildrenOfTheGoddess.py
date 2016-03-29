@@ -1,12 +1,11 @@
 _version = 'pre-alpha1'
 
-import sys
 import os
 import logging
 import time
 import argparse
 import wx
-from core import main, main2
+from core import main
 
 # read options
 parser = argparse.ArgumentParser(description='Start the game "Children of the Goddess".')
@@ -19,10 +18,10 @@ options['mute'] = args.mute
 logging.basicConfig(filename=os.path.join('core', 'logs', str(int(time.time())) + '.txt'), level=logging.DEBUG)
 logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
 logging.info("\"Children of the Goddess\" version is {}".format(_version))
-logging.info("Audio mute is set to {}.".format(options['mute']))
+logging.info("Mute is set to {}.".format(options['mute']))
 
-
+# start the main
 app = wx.App(False)
 #frame = main.Game(options)
-frame = main2.Game(options)
+frame = main.Game(options)
 app.MainLoop()

@@ -9,7 +9,7 @@ root = os.path.dirname(os.path.realpath(__file__))
 def create(name):
     arch = raw_input('Do you want to choose one from the archetypes?[y/n][default:n]') or 'n'
     if arch == 'y':
-        list_archetypes()
+        get_list()
         archetype_name = raw_input('Archetype name: ')
         try:
             exec 'from archetypes.{} import *'.format(archetype_name)

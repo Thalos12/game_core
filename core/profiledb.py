@@ -1,8 +1,7 @@
 # coding=utf-8
-import sys,os
+import os
 import random
 import sqlite3 as sql
-import wx
 from GUI import gui
 
 root = os.path.dirname(os.path.realpath(__file__))
@@ -28,7 +27,7 @@ def create(name,archetype):
     stats['NAME'] = name
     stats['LEVEL'] = 1
     stats['EXP'] = 0
-    stats['MONEY'] = 10 # gold? silver? bronze? banana?
+    stats['MONEY'] = 10 # gold? silver? bronze? bananas?
     stats['VIT'] = VIT
     stats['STR'] = STR
     stats['RES'] = RES
@@ -51,8 +50,12 @@ def create(name,archetype):
                                                                          stats['RES'],stats['AGI'],stats['INT'],
                                                                          stats['WEAPON'],stats['ARMOR'],stats['SKILL']))
 
+def delete(name):
+    filename = name+'.datafile'
+    os.remove(os.path.join(root,'data','players',filename))
+
 def list_all():
-    folder = 'core/data/players'
+    folder = os.path.join(root,'data','players')
     names = [ f.split('.')[0] for f in os.listdir(folder) if os.path.isfile(os.path.join(folder,f)) ]
     return names
 
