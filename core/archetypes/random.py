@@ -1,4 +1,4 @@
-#warrior
+# random
 
 min_vit = 15
 max_vit = 35

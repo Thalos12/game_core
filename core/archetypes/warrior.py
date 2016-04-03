@@ -1,4 +1,4 @@
-#warrior
+# warrior
 
 min_vit = 28
 max_vit = 35
