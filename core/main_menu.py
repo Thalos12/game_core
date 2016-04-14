@@ -100,22 +100,26 @@ class Game(wx.Frame):
     def new_profile(self, evt):
         self.panel_new_profile = wx.Panel(self)
         self.sizer_new_profile = wx.BoxSizer(wx.VERTICAL)
+
         label1 = wx.StaticText(self.panel_new_profile, label='Write your name please.')
         player_name = wx.TextCtrl(self)
         label2 = wx.StaticText(self.panel_new_profile, label='Choose an archetype.')
         arch = list_archetypes.get_list()
         archetypes_listbox = wx.ListBox(self.panel_new_profile, choices=arch, style=wx.LB_SINGLE)
         ok = wx.Button(self.panel_new_profile, label='Ok')
-        self.sizer_new_profile.AddMany([(label1, 0, wx.ALL | wx.EXPAND, 5),
-                                        (player_name, 0, wx.LEFT | wx.BOTTOM | wx.RIGHT | wx.EXPAND, 5),
+
+        self.sizer_new_profile.AddMany([(label1, 0, wx.ALL, 5),
+                                        (player_name, 0, wx.LEFT | wx.BOTTOM | wx.RIGHT, 5),
                                         (label2, 0, wx.LEFT | wx.BOTTOM | wx.RIGHT, 5),
-                                        (archetypes_listbox, 1, wx.LEFT | wx.BOTTOM | wx.RIGHT, 5),
+                                        (archetypes_listbox, 0, wx.LEFT | wx.BOTTOM | wx.RIGHT, 5),
                                         (ok, 0, wx.LEFT | wx.BOTTOM | wx.RIGHT, 5)])
         self.panel_new_profile.SetSizer(self.sizer_new_profile)
         self.panel_new_profile.SetBackgroundColour(wx.Colour(255, 100, 100, 200))
-        self.panel_l.Hide()
-        self.panel_r.Hide()
-        self.panel_new_profile.Fit()
+
+        self.sizer.Clear(True)
+        self.sizer.Add(self.panel_new_profile, 1, wx.EXPAND, 5)
+        self.SetSizer(self.sizer)
+        self.Layout()
 
     def ok(self, evt):
         name = self.profiles[self.profile_listbox.GetSelection()]
