@@ -1,17 +1,18 @@
 import os
-import logging
-import time
 import argparse
 import ConfigParser
 import wx
 from core import main_menu
+# from core import main_menu_dev
 
+# fundamental informations
 _version = 'pre-alpha2'
 _name = 'Children of the Goddess'
 _author = ['Alessandro Mazzi - Programmer',
            'Giada Faraon - Programmer',
            'Giovanni Muranetto - Programmer',
            'Linda Faraon - Artist']
+_root = os.path.dirname(os.path.realpath(__file__))
 
 # read command line options
 arg_parser = argparse.ArgumentParser(description='Start the game "Children of the Goddess".')
@@ -23,27 +24,12 @@ args = arg_parser.parse_args()
 options = {}
 options['mute'] = args.mute
 
+# read configuration file
 cfg_parser = ConfigParser.SafeConfigParser()
 cfg_parser.read('configs.cfg')
 for s in cfg_parser.sections():
-    for o in cfg_parser.options(s):
-        options[str(o)] = cfg_parser.get(s, o, 0)
-
-print options
-
-# start logging
-logging.basicConfig(filename=os.path.join('core', 'logs', str(int(time.time())) + '.txt'),
-                    level=logging.DEBUG)
-logging.info("{}".format(time.strftime("Started logging %d %b %Y, %H:%M:%S")))
-logging.info("\"Children of the Goddess\" version is {}".format(_version))
-
-options_for_log = str()
-print sorted(options.keys(), cmp=None, key=None, reverse=False)
-for k in sorted(options.keys()):
-    options_for_log + str(k[0].upper()) + str(k[1:]) + ': ' + str(options[k])
-print options_for_log
-# logging.info("Mute is set to {}.".format(options['mute']))
-logging.info(options_for_log)
+    for opt in cfg_parser.options(s):
+        options[str(opt)] = cfg_parser.get(s, opt, 0)
 
 # start the actual game
 app = wx.App(False)
